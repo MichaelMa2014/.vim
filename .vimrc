@@ -36,10 +36,14 @@ set listchars=tab:>-,trail:•,extends:#,nbsp:.
 set pastetoggle=<F12>
 set hlsearch
 "set completeopt-=preview
+set wildmode=longest,list,full
 set wildmenu
 set showcmd
 set ignorecase
 set smartcase
+set ttimeoutlen=0
+set foldmethod=indent
+set autoread
 
 " Persistant Undo
 set undofile
@@ -49,7 +53,7 @@ set undoreload=10000
 
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 nnoremap <C-G> :YcmCompleter GoTo<CR>
-nnoremap <C-E> :NERDTree<CR>
+nnoremap <F3> :NERDTree<CR>
 nnoremap <F4> :UndotreeToggle<CR>
 noremap j gj
 noremap k gk
@@ -58,9 +62,20 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 nnoremap Q <NOP>
 nnoremap <F9> :SLoad<SPACE>
+cabbrev h vert h
 
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 highlight Pmenu ctermbg=0
+
+fun! ShowFuncName()
+  let lnum = line(".")
+  let col = col(".")
+  echohl ModeMsg
+  echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))
+  echohl None
+  call search("\\%" . lnum . "l" . "\\%" . col . "c")
+endfun
+map f :call ShowFuncName() <CR>
