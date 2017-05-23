@@ -17,6 +17,7 @@ Plugin 'tweekmonster/impsort.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mhinz/vim-startify'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'dhruvasagar/vim-table-mode'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
