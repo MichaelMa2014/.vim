@@ -17,6 +17,7 @@ Plugin 'tweekmonster/impsort.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mhinz/vim-startify'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'dhruvasagar/vim-table-mode'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -42,7 +43,7 @@ set showcmd
 set ignorecase
 set smartcase
 set ttimeoutlen=0
-set foldmethod=indent
+"set foldmethod=indent
 set autoread
 
 " Persistant Undo
@@ -53,6 +54,7 @@ set undoreload=10000
 
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 nnoremap <C-G> :YcmCompleter GoTo<CR>
+nnoremap <F2> :set foldmethod=indent<CR>
 nnoremap <F3> :NERDTree<CR>
 nnoremap <F4> :UndotreeToggle<CR>
 noremap j gj
