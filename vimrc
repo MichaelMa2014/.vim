@@ -45,10 +45,11 @@ set smartcase
 set ttimeoutlen=0
 "set foldmethod=indent
 set autoread
+set viminfo='100,<1000,s100,:100,n$HOME/vim/viminfo
 
 " Persistant Undo
 set undofile
-set undodir=$HOME/.vim/undo
+set undodir=$HOME/.vimundo
 set undolevels=1000
 set undoreload=10000
 
