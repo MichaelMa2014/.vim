@@ -48,6 +48,8 @@ set ttimeoutlen=0
 set autoread
 set viminfo='100,<1000,s100,:100,n$HOME/vim/viminfo
 
+autocmd BufNewFile,BufRead *.md filetype plugin indent off
+
 " Persistant Undo
 set undofile
 set undodir=$HOME/.vimundo
