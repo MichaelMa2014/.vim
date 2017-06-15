@@ -18,6 +18,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'mhinz/vim-startify'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'dhruvasagar/vim-table-mode'
+Plugin 'vim-scripts/TagHighlight'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
