@@ -19,6 +19,7 @@ Plugin 'mhinz/vim-startify'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'vim-scripts/TagHighlight'
+Plugin 'luochen1990/rainbow'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -49,6 +50,8 @@ set autoread
 set viminfo='100,<1000,s100,:100,n$HOME/vim/viminfo
 
 autocmd BufNewFile,BufRead *.md filetype plugin indent off
+
+let g:rainbow_active=1
 
 " Persistant Undo
 set undofile
