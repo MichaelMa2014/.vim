@@ -51,6 +51,7 @@ set viminfo='100,<1000,s100,:100,n$HOME/vim/viminfo
 
 autocmd BufNewFile,BufRead *.md filetype plugin indent off
 
+let g:ycm_confirm_extra_conf = 0
 let g:rainbow_active=1
 
 " Persistant Undo
