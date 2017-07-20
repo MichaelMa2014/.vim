@@ -45,7 +45,7 @@ set showcmd
 set ignorecase
 set smartcase
 set ttimeoutlen=0
-"set foldmethod=indent
+set foldmethod=manual
 set autoread
 set viminfo='100,<1000,s100,:100,n$HOME/vim/viminfo
 
