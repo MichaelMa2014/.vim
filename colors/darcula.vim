@@ -2,6 +2,8 @@
 
 highlight clear
 
+"let g:colors_name="darcula"
+
 hi Cursor ctermfg=235 ctermbg=250 cterm=NONE guifg=#2b2b2b guibg=#bbbbbb gui=NONE
 hi Visual ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#214283 gui=NONE
 hi CursorLine ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#38393b gui=NONE
