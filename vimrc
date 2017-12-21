@@ -20,6 +20,7 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'vim-scripts/TagHighlight'
 Plugin 'luochen1990/rainbow'
+Plugin 'niftylettuce/vim-jinja'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -91,3 +92,13 @@ endfun
 map f :call ShowFuncName() <CR>
 
 abbreviate ffia from __future__ import division<CR>from __future__ import absolute_import<CR>from __future__ import print_function<CR>from __future__ import unicode_literals
+
+" Crontab requires that files are edited in place
+au FileType crontab setlocal bkc=yes
+
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" Disable rainbow in html.jinja
+au FileType jinja.html RainbowToggle
