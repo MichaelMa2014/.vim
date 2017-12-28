@@ -49,6 +49,7 @@ set ttimeoutlen=0
 set foldmethod=manual
 set autoread
 set viminfo='100,<1000,s100,:100,n$HOME/.vim/viminfo
+set colorcolumn=80
 
 autocmd BufNewFile,BufRead *.md filetype plugin indent off
 
