@@ -21,6 +21,8 @@ Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'vim-scripts/TagHighlight'
 Plugin 'luochen1990/rainbow'
 Plugin 'niftylettuce/vim-jinja'
+Plugin 'toyamarinyon/vim-swift'
+Plugin 'suan/vim-instant-markdown'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -53,7 +55,7 @@ set colorcolumn=80
 
 autocmd BufNewFile,BufRead *.md filetype plugin indent off
 
-let g:ycm_confirm_extra_conf = 0
+let g:ycm_confirm_extra_conf=0
 let g:rainbow_active=1
 
 " Persistant Undo
