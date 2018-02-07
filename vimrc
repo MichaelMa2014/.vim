@@ -22,7 +22,7 @@ Plugin 'vim-scripts/TagHighlight'
 Plugin 'luochen1990/rainbow'
 Plugin 'niftylettuce/vim-jinja'
 Plugin 'toyamarinyon/vim-swift'
-Plugin 'suan/vim-instant-markdown'
+Plugin 'MichaelMa2014/vim-instant-markdown'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -63,6 +63,9 @@ set undofile
 set undodir=$HOME/.vimundo
 set undolevels=1000
 set undoreload=10000
+
+" Markdown preview testing
+let g:instant_markdown_open_to_the_world=1
 
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 nnoremap <C-G> :YcmCompleter GoTo<CR>
