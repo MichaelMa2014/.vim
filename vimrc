@@ -7,7 +7,6 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -23,6 +22,7 @@ Plugin 'luochen1990/rainbow'
 Plugin 'niftylettuce/vim-jinja'
 Plugin 'toyamarinyon/vim-swift'
 Plugin 'MichaelMa2014/vim-instant-markdown'
+Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -77,6 +77,8 @@ noremap k gk
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+nnoremap gr :!grep -rniIw --color=auto "<cword>" .<CR>
+nnoremap gR :!grep -rniI --color=auto "<cword>" .<CR>
 nnoremap Q <NOP>
 nnoremap <F9> :SLoad<SPACE>
 cabbrev h vert h
