@@ -23,6 +23,10 @@ Plugin 'niftylettuce/vim-jinja'
 Plugin 'toyamarinyon/vim-swift'
 Plugin 'MichaelMa2014/vim-instant-markdown'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'lervag/vimtex'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'edkolev/tmuxline.vim'
+Plugin 'nvie/vim-flake8'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -52,11 +56,25 @@ set foldmethod=manual
 set autoread
 set viminfo='100,<1000,s100,:100,n$HOME/.vim/viminfo
 set colorcolumn=80
+set mouse=a
+set exrc
+set winwidth=86
+set winminwidth=20
+set wrap
+set cursorline
+set cryptmethod=blowfish2
 
 autocmd BufNewFile,BufRead *.md filetype plugin indent off
+autocmd TerminalOpen * if &buftype == 'terminal' | set nonu | endif
 
 let g:ycm_confirm_extra_conf=0
+let g:ycm_complete_in_comments=1
+let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_collect_identifiers_from_comments_and_strings=1
 let g:rainbow_active=1
+let g:vim_markdown_folding_disabled=1
+let g:NERDSpaceDelims=1
+let g:termdebug_wide=1
 
 " Persistant Undo
 set undofile
@@ -68,19 +86,19 @@ set undoreload=10000
 let g:instant_markdown_open_to_the_world=1
 
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-nnoremap <C-G> :YcmCompleter GoTo<CR>
+nnoremap <C-G> :leftabove vertical YcmCompleter GoTo<CR>
+nnoremap <C-F> :YcmCompleter FixIt<CR>
 nnoremap <F2> :set foldmethod=indent<CR>
 nnoremap <F3> :NERDTree<CR>
-nnoremap <F4> :UndotreeToggle<CR>
+nnoremap <F4> :vs<CR>:Startify<CR>
 noremap j gj
 noremap k gk
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-nnoremap gr :!grep -rniIw --color=auto "<cword>" .<CR>
-nnoremap gR :!grep -rniI --color=auto "<cword>" .<CR>
+nnoremap gr :!grep -RniIw --color=auto "<cword>" .<CR>
+nnoremap gR :!grep -RniI --color=auto "<cword>" .<CR>
 nnoremap Q <NOP>
-nnoremap <F9> :SLoad<SPACE>
 cabbrev h vert h
 
 if has("autocmd")
@@ -97,16 +115,37 @@ fun! ShowFuncName()
   echohl None
   call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
-map f :call ShowFuncName() <CR>
+map gf :call ShowFuncName() <CR>
 
 abbreviate ffia from __future__ import division<CR>from __future__ import absolute_import<CR>from __future__ import print_function<CR>from __future__ import unicode_literals
+abbreviate bmtx \begin{bmatrix} \end{bmatrix}
 
 " Crontab requires that files are edited in place
 au FileType crontab setlocal bkc=yes
 
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+map <F11> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Disable rainbow in html.jinja
 au FileType jinja.html RainbowToggle
+
+packadd termdebug
+
+let g:tmuxline_separators = {
+    \ 'left' : '',
+    \ 'left_alt': '>',
+    \ 'right' : '',
+    \ 'right_alt' : '<',
+    \ 'space' : ' '}
+
+let g:tmuxline_preset = {
+      \'a'    : 'MICHAEL',
+      \'b'    : '#S',
+      \'c'    : '#S',
+      \'win'  : '#[fg=colour146][#I]#W',
+      \'cwin' : '[#I]#W',
+      \'x'    : '%R',
+      \'y'    : '%a %m/%d',
+      \'z'    : '#H'}
+
