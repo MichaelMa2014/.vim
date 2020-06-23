@@ -27,6 +27,8 @@ Plugin 'lervag/vimtex'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'nvie/vim-flake8'
+Plugin 'powerman/vim-plugin-AnsiEsc'
+Plugin 'Yggdroot/indentLine'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -63,18 +65,24 @@ set winminwidth=20
 set wrap
 set cursorline
 set cryptmethod=blowfish2
+set clipboard=unnamed
 
 autocmd BufNewFile,BufRead *.md filetype plugin indent off
 autocmd TerminalOpen * if &buftype == 'terminal' | set nonu | endif
+" Crontab requires that files are edited in place
+au FileType crontab setlocal bkc=yes
 
 let g:ycm_confirm_extra_conf=0
 let g:ycm_complete_in_comments=1
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_collect_identifiers_from_comments_and_strings=1
+let g:ycm_enable_diagnostic_highlighting=0
 let g:rainbow_active=1
 let g:vim_markdown_folding_disabled=1
 let g:NERDSpaceDelims=1
 let g:termdebug_wide=1
+let g:impsort_highlight_imported=1
+let g:impsort_highlight_star_imports=1
 
 " Persistant Undo
 set undofile
@@ -117,11 +125,8 @@ fun! ShowFuncName()
 endfun
 map gf :call ShowFuncName() <CR>
 
-abbreviate ffia from __future__ import division<CR>from __future__ import absolute_import<CR>from __future__ import print_function<CR>from __future__ import unicode_literals
 abbreviate bmtx \begin{bmatrix} \end{bmatrix}
 
-" Crontab requires that files are edited in place
-au FileType crontab setlocal bkc=yes
 
 map <F11> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
