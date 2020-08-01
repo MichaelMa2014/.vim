@@ -109,6 +109,11 @@ nnoremap gR :!grep -RniI --color=auto "<cword>" .<CR>
 nnoremap Q <NOP>
 cabbrev h vert h
 
+" curl -fsSLo pbcopy https://raw.githubusercontent.com/skaji/remote-pbcopy-iterm2/master/pbcopy.py
+" chmod +x pbcopy
+" sudo mv pbcopy /usr/local/bin/
+noremap <leader>y :.w !pbcopy<CR><CR>
+
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
