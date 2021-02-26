@@ -29,6 +29,7 @@ Plugin 'edkolev/tmuxline.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'Yggdroot/indentLine'
+Plugin 'w0rp/ale'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -62,10 +63,11 @@ set mouse=a
 set exrc
 set winwidth=86
 set winminwidth=20
-set wrap
+set nowrap
 set cursorline
 set cryptmethod=blowfish2
 set clipboard=unnamed
+language en_US
 
 autocmd BufNewFile,BufRead *.md filetype plugin indent off
 autocmd TerminalOpen * if &buftype == 'terminal' | set nonu | endif
@@ -152,7 +154,7 @@ let g:tmuxline_separators = {
 let g:tmuxline_preset = {
       \'a'    : 'MICHAEL',
       \'b'    : '#S',
-      \'c'    : '#S',
+      \'c'    : '#{pane_current_path}',
       \'win'  : '#[fg=colour146][#I]#W',
       \'cwin' : '[#I]#W',
       \'x'    : '%R',
