@@ -30,6 +30,7 @@ Plugin 'nvie/vim-flake8'
 Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'Yggdroot/indentLine'
 Plugin 'w0rp/ale'
+Plugin 'tpope/vim-fugitive'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -67,7 +68,6 @@ set nowrap
 set cursorline
 set cryptmethod=blowfish2
 set clipboard=unnamed
-language en_US
 
 autocmd BufNewFile,BufRead *.md filetype plugin indent off
 autocmd TerminalOpen * if &buftype == 'terminal' | set nonu | endif
@@ -141,6 +141,7 @@ map <F11> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 
 " Disable rainbow in html.jinja
 au FileType jinja.html RainbowToggle
+au FileType jinja.html set sw=2
 
 packadd termdebug
 
