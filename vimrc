@@ -30,6 +30,8 @@ Plugin 'nvie/vim-flake8'
 Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'Yggdroot/indentLine'
 Plugin 'w0rp/ale'
+Plugin 'tpope/vim-fugitive'
+Plugin 'github/copilot.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -67,7 +69,6 @@ set nowrap
 set cursorline
 set cryptmethod=blowfish2
 set clipboard=unnamed
-language en_US
 
 autocmd BufNewFile,BufRead *.md filetype plugin indent off
 autocmd TerminalOpen * if &buftype == 'terminal' | set nonu | endif
@@ -79,6 +80,7 @@ let g:ycm_complete_in_comments=1
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_collect_identifiers_from_comments_and_strings=1
 let g:ycm_enable_diagnostic_highlighting=0
+let g:ycm_enable_hover=0
 let g:rainbow_active=1
 let g:vim_markdown_folding_disabled=1
 let g:NERDSpaceDelims=1
@@ -88,7 +90,7 @@ let g:impsort_highlight_star_imports=1
 
 " Persistant Undo
 set undofile
-set undodir=$HOME/.vimundo
+set undodir=$HOME/.vim/vimundo
 set undolevels=1000
 set undoreload=10000
 
@@ -141,6 +143,10 @@ map <F11> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 
 " Disable rainbow in html.jinja
 au FileType jinja.html RainbowToggle
+au FileType jinja.html set sw=2
+au FileType typescript set sw=2
+au FileType typescriptreact set sw=2
+au FileType go set noexpandtab
 
 packadd termdebug
 
