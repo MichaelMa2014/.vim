@@ -68,6 +68,7 @@ set nowrap
 set cursorline
 set cryptmethod=blowfish2
 set clipboard=unnamed
+set autochdir
 
 autocmd BufNewFile,BufRead *.md filetype plugin indent off
 autocmd TerminalOpen * if &buftype == 'terminal' | set nonu | endif
@@ -107,8 +108,8 @@ noremap k gk
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-nnoremap gr :!grep -RniIw --color=auto "<cword>" .<CR>
-nnoremap gR :!grep -RniI --color=auto "<cword>" .<CR>
+nnoremap rg :!rg --color=auto "<cword>" .<CR>
+nnoremap rG :!rg --color=auto "<cword>" ~/go 2>/dev/null<CR>
 nnoremap Q <NOP>
 cabbrev h vert h
 
@@ -164,5 +165,6 @@ let g:tmuxline_preset = {
       \'cwin' : '[#I]#W',
       \'x'    : '#(~/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh)%R',
       \'y'    : '%a %m/%d',
-      \'z'    : '#(~/.tmux/plugins/tmux-continuum/scripts/continuum_status.sh)'}
+      \'z'    : '#(~/.tmux/plugins/tmux-continuum/scripts/continuum_status.sh)',
+      \'options' : {'status-justify' : 'absolute-centre'}}
 
