@@ -162,7 +162,7 @@ let g:tmuxline_preset = {
       \'c'    : '#S',
       \'win'  : '#[fg=colour146][#I]#W',
       \'cwin' : '[#I]#W',
-      \'x'    : '#(/home/MichaelMa/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh)%R',
+      \'x'    : '#(~/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh)%R',
       \'y'    : '%a %m/%d',
-      \'z'    : '#(/home/MichaelMa/.tmux/plugins/tmux-continuum/scripts/continuum_status.sh)'}
+      \'z'    : '#(~/.tmux/plugins/tmux-continuum/scripts/continuum_status.sh)'}
 
