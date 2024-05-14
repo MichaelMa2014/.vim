@@ -64,11 +64,7 @@ set mouse=a
 set exrc
 set winwidth=86
 set winminwidth=20
-<<<<<<< HEAD
-set wrap
-=======
 set nowrap
->>>>>>> e528ac0ae5ad24efec4c0c6260af38071ce55487
 set cursorline
 set cryptmethod=blowfish2
 set clipboard=unnamed
@@ -83,10 +79,7 @@ let g:ycm_complete_in_comments=1
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_collect_identifiers_from_comments_and_strings=1
 let g:ycm_enable_diagnostic_highlighting=0
-<<<<<<< HEAD
-=======
 let g:ycm_enable_hover=0
->>>>>>> e528ac0ae5ad24efec4c0c6260af38071ce55487
 let g:rainbow_active=1
 let g:vim_markdown_folding_disabled=1
 let g:NERDSpaceDelims=1
@@ -96,11 +89,7 @@ let g:impsort_highlight_star_imports=1
 
 " Persistant Undo
 set undofile
-<<<<<<< HEAD
-set undodir=$HOME/.vimundo
-=======
 set undodir=$HOME/.vim/vimundo
->>>>>>> e528ac0ae5ad24efec4c0c6260af38071ce55487
 set undolevels=1000
 set undoreload=10000
 
@@ -169,7 +158,7 @@ let g:tmuxline_separators = {
 
 let g:tmuxline_preset = {
       \'a'    : 'MICHAEL',
-      \'b'    : '#S',
+      \'b'    : '#H',
       \'c'    : '#S',
       \'win'  : '#[fg=colour146][#I]#W',
       \'cwin' : '[#I]#W',
