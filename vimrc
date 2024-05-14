@@ -15,13 +15,11 @@ Plugin 'haya14busa/incsearch.vim'
 Plugin 'tweekmonster/impsort.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mhinz/vim-startify'
-Plugin 'plasticboy/vim-markdown'
 Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'vim-scripts/TagHighlight'
 Plugin 'luochen1990/rainbow'
-Plugin 'niftylettuce/vim-jinja'
+Plugin 'lepture/vim-jinja'
 Plugin 'toyamarinyon/vim-swift'
-Plugin 'MichaelMa2014/vim-instant-markdown'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'lervag/vimtex'
 Plugin 'junegunn/vim-easy-align'
@@ -82,7 +80,6 @@ let g:ycm_collect_identifiers_from_comments_and_strings=1
 let g:ycm_enable_diagnostic_highlighting=0
 let g:ycm_enable_hover=0
 let g:rainbow_active=1
-let g:vim_markdown_folding_disabled=1
 let g:NERDSpaceDelims=1
 let g:termdebug_wide=1
 let g:impsort_highlight_imported=1
@@ -93,9 +90,6 @@ set undofile
 set undodir=$HOME/.vim/vimundo
 set undolevels=1000
 set undoreload=10000
-
-" Markdown preview testing
-let g:instant_markdown_open_to_the_world=1
 
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 nnoremap <C-G> :leftabove vertical YcmCompleter GoTo<CR>
