@@ -18,7 +18,7 @@ sudo make install
 
 # OR install with brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install cmake go mosh pipx python ripgrep tmux
+brew install cmake go mosh pipx python ripgrep tmux coreutils
 pipx install glances
 # sudo ln -s /home/linuxbrew/.linuxbrew/bin/mosh-server /usr/local/bin/mosh-server
 

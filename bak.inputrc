@@ -1,0 +1,5 @@
+set editing-mode vi
+
+"^[[5~" history-beginning-search-backward
+"^[[6~" history-beginning-search-forward
+
