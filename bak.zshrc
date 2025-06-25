@@ -1,13 +1,16 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
+export EDITOR=/opt/homebrew/bin/vim
 
-export EDITOR=/usr/local/bin/vim
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
-bindkey "^[[5~" history-beginning-search-backward
-bindkey "^[[6~" history-beginning-search-forward
+bindkey "^U" backward-kill-line
+bindkey "^W" backward-kill-word
+bindkey "^[[1;3A" history-search-backward  # Option+Up
+bindkey "^[[1;3B" history-search-forward   # Option+Down
+bindkey "^[[1;3C" forward-word             # Option+Right
+bindkey "^[[1;3D" backward-word            # Option+Left
 
 set completion-ignore-case off
-set expand-tilde off
+set expand-tilde on
 set convert-meta off
 set input-meta on
 set output-meta on
@@ -16,4 +19,3 @@ set visible-stats on
 set enable-bracketed-paste off
 
 alias rg="rg -S"
-alias ls="gls --color=auto"
