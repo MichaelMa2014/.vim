@@ -107,10 +107,7 @@ nnoremap rG :!rg --color=auto "<cword>" ~/go 2>/dev/null<CR>
 nnoremap Q <NOP>
 cabbrev h vert h
 
-" curl -fsSLo pbcopy https://raw.githubusercontent.com/skaji/remote-pbcopy-iterm2/master/pbcopy.py
-" chmod +x pbcopy
-" sudo mv pbcopy /usr/local/bin/
-noremap <leader>y :.w !pbcopy<CR><CR>
+noremap <leader>y :.w !~/.vim/pbcopy<CR><CR>
 
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -142,7 +139,7 @@ au FileType typescript set sw=2
 au FileType typescriptreact set sw=2
 au FileType go set noexpandtab
 
-packadd termdebug
+" packadd termdebug
 
 let g:tmuxline_separators = {
     \ 'left' : '',

@@ -14,3 +14,5 @@ if [ -n "$TMUX" ]; then
     export HISTFILE="$new_histfile"
     history -r
 fi
+alias cdd="cd ~/Snowflake/trunk"
+export CLAUDE_CODE_MAX_OUTPUT_TOKENS=40960
