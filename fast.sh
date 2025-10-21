@@ -4,4 +4,5 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 cp bak.tmux.conf ~/.tmux.conf
 tic tmux-256color.ti
 cat bak.bashrc >> ~/.bashrc
+cp bak.inputrc ~/.inputrc
 

@@ -62,7 +62,7 @@ set mouse=a
 set exrc
 set winwidth=86
 set winminwidth=20
-set nowrap
+set wrap
 set cursorline
 set cryptmethod=blowfish2
 set clipboard=unnamed
