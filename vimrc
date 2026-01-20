@@ -159,3 +159,22 @@ let g:tmuxline_preset = {
       \'z'    : '#(~/.tmux/plugins/tmux-continuum/scripts/continuum_status.sh)',
       \'options' : {'status-justify' : 'absolute-centre'}}
 
+function! s:gitModified()
+    " Check if gt is installed and we're in a git repo
+    if !executable('gt') || system('git rev-parse --is-inside-work-tree 2>/dev/null') !~# 'true'
+        return []
+    endif
+    let files = systemlist('git diff --name-only $(gt parent) 2>/dev/null')
+    return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
+let g:startify_lists = [
+      \ { 'type': function('s:gitModified'), 'header': ['   git diff $(gt parent)']},
+      \ { 'type': 'files',     'header': ['   MRU']            },
+      \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+      \ { 'type': 'sessions',  'header': ['   Sessions']       },
+      \ { 'type': 'commands',  'header': ['   Commands']       },
+      \ ]
+let g:startify_bookmarks = ['~/.vim/vimrc', '~/.zshrc' ]
+
