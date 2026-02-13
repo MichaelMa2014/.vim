@@ -17,3 +17,18 @@ fi
 alias cdd="cd ~/Snowflake/trunk"
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=40960
 export SF_PRECOMMIT_AUTOFIX=true
+
+cdp() {
+    local files=()
+    while IFS= read -r -d '' file; do
+      files+=("$file")
+    done < <(find . -name "$1" -print0 2>/dev/null)
+
+    if [ ${#files[@]} -eq 1 ]; then
+      cd "$(dirname "${files[0]}")" && pwd
+    elif [ ${#files[@]} -eq 0 ]; then
+      echo "No files found"
+    else
+      printf '%s\n' "${files[@]}"
+    fi
+}
