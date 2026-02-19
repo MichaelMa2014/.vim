@@ -15,7 +15,6 @@ if [ -n "$TMUX" ]; then
     history -r
 fi
 alias cdd="cd ~/Snowflake/trunk"
-export CLAUDE_CODE_MAX_OUTPUT_TOKENS=40960
 export SF_PRECOMMIT_AUTOFIX=true
 
 cdp() {

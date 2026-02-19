@@ -138,6 +138,7 @@ au FileType jinja.html set sw=2
 au FileType typescript set sw=2
 au FileType typescriptreact set sw=2
 au FileType go set noexpandtab
+au FileType json set syn=txt
 
 " packadd termdebug
 
