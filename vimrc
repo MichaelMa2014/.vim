@@ -151,7 +151,7 @@ let g:tmuxline_separators = {
 
 let g:tmuxline_preset = {
       \'a'    : 'MICHAEL',
-      \'b'    : '#H',
+      \'b'    : filereadable(expand('~/.local/bin/claude-usage')) ? '#(~/.local/bin/claude-usage)' : '#H',
       \'c'    : '#S',
       \'win'  : '#[fg=colour146][#I]#W',
       \'cwin' : '[#I]#W',
