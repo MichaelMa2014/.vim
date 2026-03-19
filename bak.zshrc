@@ -4,8 +4,8 @@ bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
 bindkey "^U" backward-kill-line
 bindkey "^W" backward-kill-word
-bindkey "^[[1;3A" history-search-backward  # Option+Up
-bindkey "^[[1;3B" history-search-forward   # Option+Down
+bindkey "^[[1;3A" history-beginning-search-backward
+bindkey "^[[1;3B" history-beginning-search-forward
 bindkey "^[[1;3C" forward-word             # Option+Right
 bindkey "^[[1;3D" backward-word            # Option+Left
 
