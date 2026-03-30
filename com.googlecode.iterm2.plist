@@ -28,6 +28,8 @@
 	<string>https://api.openai.com/v1/responses</string>
 	<key>AllowClipboardAccess</key>
 	<true/>
+	<key>BracketedPasteMode</key>
+	<true/>
 	<key>Default Bookmark Guid</key>
 	<string>AEF14985-E06F-40B1-9823-BEF02B8F0E90</string>
 	<key>DimBackgroundWindows</key>
@@ -39,6 +41,8 @@
 	<key>EnableDivisionView</key>
 	<false/>
 	<key>EnableProxyIcon</key>
+	<false/>
+	<key>EscapeShellCharsWithBackslash</key>
 	<false/>
 	<key>GlobalKeyMap</key>
 	<dict>
@@ -3090,6 +3094,10 @@
 	<true/>
 	<key>OptionClickMovesCursor</key>
 	<false/>
+	<key>PasteSpecialChunkDelay</key>
+	<real>0.01</real>
+	<key>PasteSpecialChunkSize</key>
+	<integer>1024</integer>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
