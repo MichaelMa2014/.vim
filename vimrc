@@ -27,7 +27,7 @@ Plugin 'edkolev/tmuxline.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'Yggdroot/indentLine'
-Plugin 'w0rp/ale'
+" Plugin 'w0rp/ale'
 Plugin 'tpope/vim-fugitive'
 
 " All of your Plugins must be added before the following line
