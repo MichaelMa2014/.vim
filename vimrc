@@ -63,6 +63,7 @@ set exrc
 set winwidth=86
 set winminwidth=20
 set wrap
+set display=lastline
 set cursorline
 set cryptmethod=blowfish2
 set clipboard=unnamed
