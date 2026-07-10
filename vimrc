@@ -150,9 +150,20 @@ let g:tmuxline_separators = {
     \ 'right_alt' : '<',
     \ 'space' : ' '}
 
+function! s:usage_status()
+    let segments = []
+    if filereadable(expand('~/.local/bin/claude-usage'))
+        call add(segments, '#(~/.local/bin/claude-usage)')
+    endif
+    if filereadable(expand('~/.local/bin/codex-usage'))
+        call add(segments, '#(~/.local/bin/codex-usage)')
+    endif
+    return empty(segments) ? '#H' : join(segments, ' #[fg=colour244]│#[default] ')
+endfunction
+
 let g:tmuxline_preset = {
       \'a'    : 'MICHAEL',
-      \'b'    : filereadable(expand('~/.local/bin/claude-usage')) ? '#(~/.local/bin/claude-usage)' : '#H',
+      \'b'    : s:usage_status(),
       \'c'    : '#S',
       \'win'  : '#[fg=colour146][#I]#W',
       \'cwin' : '[#I]#W',
@@ -179,4 +190,3 @@ let g:startify_lists = [
       \ { 'type': 'commands',  'header': ['   Commands']       },
       \ ]
 let g:startify_bookmarks = ['~/.vim/vimrc', '~/.zshrc' ]
-
