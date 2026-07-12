@@ -143,6 +143,10 @@ au FileType json set syn=txt
 
 " packadd termdebug
 
+" ~/.tmux.conf owns the live status format. Prevent airline from regenerating
+" it on every Vim startup and undoing the usage-section background styling.
+let g:airline#extensions#tmuxline#enabled = 0
+
 let g:tmuxline_separators = {
     \ 'left' : '',
     \ 'left_alt': '>',
@@ -158,7 +162,7 @@ function! s:usage_status()
     if filereadable(expand('~/.local/bin/codex-usage'))
         call add(segments, '#(~/.local/bin/codex-usage)')
     endif
-    return empty(segments) ? '#H' : join(segments, ' #[fg=colour244]│#[default] ')
+    return empty(segments) ? '#H' : join(segments, '#[fg=colour244,bg=colour238]│ #[fg=colour255,bg=colour238]')
 endfunction
 
 let g:tmuxline_preset = {
