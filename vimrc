@@ -156,11 +156,9 @@ let g:tmuxline_separators = {
 
 function! s:usage_status()
     let segments = []
-    if filereadable(expand('~/.local/bin/claude-usage'))
-        call add(segments, '#(~/.local/bin/claude-usage)')
-    endif
-    if filereadable(expand('~/.local/bin/codex-usage'))
-        call add(segments, '#(~/.local/bin/codex-usage)')
+    if filereadable(expand('~/.local/bin/cursor-usage'))
+        call add(segments, '#(~/.local/bin/cursor-usage auto)')
+        call add(segments, '#(~/.local/bin/cursor-usage api)')
     endif
     return empty(segments) ? '#H' : join(segments, '#[fg=colour244,bg=colour238]│ #[fg=colour255,bg=colour238]')
 endfunction
