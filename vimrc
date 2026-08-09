@@ -143,10 +143,10 @@ au FileType json set syn=txt
 
 " packadd termdebug
 
-" ~/.tmux.conf owns the live status format. Prevent airline from regenerating
-" it on every Vim startup and undoing the usage-section background styling.
-let g:airline#extensions#tmuxline#enabled = 0
-
+" airline's tmuxline extension owns the live status format (applied on Vim start).
+" Include continuum_save here (not in ~/.tmux.conf) so autosave survives airline
+" overwriting status-right. Absolute path matches continuum's own inject/dedupe.
+" Do not snapshot this status back into bak.tmux.conf — that races restore at boot.
 let g:tmuxline_separators = {
     \ 'left' : '',
     \ 'left_alt': '>',
@@ -169,7 +169,7 @@ let g:tmuxline_preset = {
       \'c'    : '#S',
       \'win'  : '#[fg=colour146][#I]#W',
       \'cwin' : '[#I]#W',
-      \'x'    : '#(~/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh)%R',
+      \'x'    : '#(' . expand('~/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh') . ')%R',
       \'y'    : '%a %m/%d',
       \'z'    : '#(~/.tmux/plugins/tmux-continuum/scripts/continuum_status.sh)',
       \'options' : {'status-justify' : 'absolute-centre'}}
