@@ -57,6 +57,6 @@ echo "source ~/.vim/bak.zshrc" >> ~/.zshrc
 
 # tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-cp bak.tmux.conf ~/.tmux.conf
+ln -sf ~/.vim/bak.tmux.conf ~/.tmux.conf
 tic tmux-256color.ti
 
