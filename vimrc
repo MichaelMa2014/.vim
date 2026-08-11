@@ -192,3 +192,26 @@ let g:startify_lists = [
       \ { 'type': 'commands',  'header': ['   Commands']       },
       \ ]
 let g:startify_bookmarks = ['~/.vim/vimrc', '~/.zshrc' ]
+
+" GitGutter: diff against Graphite parent branch (gt parent)
+function! s:GitGutterSetGtParent() abort
+  if !executable('gt') || system('git rev-parse --is-inside-work-tree 2>/dev/null') !~# 'true'
+    return
+  endif
+  let parent = trim(system('gt parent 2>/dev/null'))
+  if !empty(parent)
+    let g:gitgutter_diff_base = parent
+  endif
+endfunction
+
+command! GitGutterGtParent
+      \ let g:gitgutter_diff_base = trim(system('gt parent')) |
+      \ GitGutter
+
+augroup gitgutter_gt_parent
+  autocmd!
+  autocmd VimEnter * call s:GitGutterSetGtParent()
+augroup END
+
+nnoremap <leader>gi :let g:gitgutter_diff_base = trim(system('gt parent')) \| GitGutter<CR>
+nnoremap <leader>gI :let g:gitgutter_diff_base = '' \| GitGutter<CR>
