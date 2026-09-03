@@ -155,12 +155,9 @@ let g:tmuxline_separators = {
     \ 'space' : ' '}
 
 function! s:usage_status()
-    let segments = []
-    if filereadable(expand('~/.local/bin/cursor-usage'))
-        call add(segments, '#(~/.local/bin/cursor-usage auto)')
-        call add(segments, '#(~/.local/bin/cursor-usage api)')
-    endif
-    return empty(segments) ? '#H' : join(segments, '#[fg=colour244,bg=colour238]│ #[fg=colour255,bg=colour238]')
+    return filereadable(expand('~/.local/bin/tmux-usage'))
+        \ ? '#(~/.local/bin/tmux-usage)'
+        \ : '#H'
 endfunction
 
 let g:tmuxline_preset = {
