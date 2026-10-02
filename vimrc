@@ -144,8 +144,7 @@ au FileType json set syn=txt
 " packadd termdebug
 
 " airline's tmuxline extension owns the live status format (applied on Vim start).
-" Include continuum_save here (not in ~/.tmux.conf) so autosave survives airline
-" overwriting status-right. Absolute path matches continuum's own inject/dedupe.
+" Preserve the patched Continuum save trigger when Vim applies its status format.
 " Do not snapshot this status back into bak.tmux.conf — that races restore at boot.
 let g:tmuxline_separators = {
     \ 'left' : '',
