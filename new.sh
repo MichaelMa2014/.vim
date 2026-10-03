@@ -59,4 +59,7 @@ echo "source ~/.vim/bak.zshrc" >> ~/.zshrc
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ln -sf ~/.vim/bak.tmux.conf ~/.tmux.conf
 tic tmux-256color.ti
+chmod +x ~/.vim/bin/tmux-boot-restore.sh
+launchctl bootout "gui/$(id -u)/Tmux.Start.plist" 2>/dev/null || launchctl unload ~/Library/LaunchAgents/Tmux.Start.plist 2>/dev/null || true
+rm -f ~/Library/LaunchAgents/Tmux.Start.plist
 

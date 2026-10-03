@@ -1,3 +1,10 @@
+" Native Python for MacVim and the existing YouCompleteMe build.
+if has('mac') && filereadable('/opt/homebrew/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/Python')
+    let &pythonthreedll = '/opt/homebrew/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/Python'
+    let g:ycm_server_python_interpreter = '/opt/homebrew/bin/python3.11'
+    let g:ycm_clangd_binary_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clangd'
+endif
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 

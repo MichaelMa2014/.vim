@@ -19,3 +19,12 @@ set visible-stats on
 set enable-bracketed-paste off
 
 alias rg="rg -S"
+
+tmux() {
+  local socket_dir="/tmp/tmux-$(id -u)"
+  if [[ -S "${socket_dir}/default" ]] && ! command tmux ls >/dev/null 2>&1; then
+    rm -f "${socket_dir}/default"
+    rmdir "${socket_dir}" 2>/dev/null || true
+  fi
+  command tmux "$@"
+}
