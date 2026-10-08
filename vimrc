@@ -166,6 +166,10 @@ function! s:usage_status()
         \ : '#H'
 endfunction
 
+" Select the status layout per attached client; keep the original desktop format.
+let s:desktop_status_format = '#[align=left range=left #{E:status-left-style}]#[push-default]#{T;=/#{status-left-length}:status-left}#[pop-default]#[norange default]#[list=on align=#{status-justify}]#[list=left-marker]<#[list=right-marker]>#[list=on]#{W:#[range=window|#{window_index} #{E:window-status-style}#{?#{&&:#{window_last_flag},#{!=:#{E:window-status-last-style},default}}, #{E:window-status-last-style},}#{?#{&&:#{window_bell_flag},#{!=:#{E:window-status-bell-style},default}}, #{E:window-status-bell-style},#{?#{&&:#{||:#{window_activity_flag},#{window_silence_flag}},#{!=:#{E:window-status-activity-style},default}}, #{E:window-status-activity-style},}}]#[push-default]#{T:window-status-format}#[pop-default]#[norange default]#{?loop_last_flag,,#{E:window-status-separator}},#[range=window|#{window_index} list=focus #{?#{!=:#{E:window-status-current-style},default},#{E:window-status-current-style},#{E:window-status-style}}#{?#{&&:#{window_last_flag},#{!=:#{E:window-status-last-style},default}}, #{E:window-status-last-style},}#{?#{&&:#{window_bell_flag},#{!=:#{E:window-status-bell-style},default}}, #{E:window-status-bell-style},#{?#{&&:#{||:#{window_activity_flag},#{window_silence_flag}},#{!=:#{E:window-status-activity-style},default}}, #{E:window-status-activity-style},}}]#[push-default]#{T:window-status-current-format}#[pop-default]#[norange list=on default]#{?loop_last_flag,,#{E:window-status-separator}}}#[nolist align=right range=right #{E:status-right-style}]#[push-default]#{T;=/#{status-right-length}:status-right}#[pop-default]#[norange default]'
+let s:phone_status_format = '#[list=on align=centre]#[list=left-marker]<#[list=right-marker]>#[list=on]#{W:#[range=window|#{window_index}] [#I]#W #[norange],#[range=window|#{window_index} list=focus bold] [#I]#W #[norange list=on nobold]}#[nolist]#(~/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh)'
+
 let g:tmuxline_preset = {
       \'a'    : 'MICHAEL',
       \'b'    : s:usage_status(),
@@ -175,7 +179,8 @@ let g:tmuxline_preset = {
       \'x'    : '#(' . expand('~/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh') . ')%R',
       \'y'    : '%a %m/%d',
       \'z'    : '#(~/.tmux/plugins/tmux-continuum/scripts/continuum_status.sh)',
-      \'options' : {'status-justify' : 'absolute-centre'}}
+      \'options' : {'status-justify' : 'absolute-centre',
+      \ 'status-format[0]' : '#{?#{e|<:#{client_width},80},' . s:phone_status_format . ',' . s:desktop_status_format . '}'}}
 
 function! s:gitModified()
     " Check if gt is installed and we're in a git repo
