@@ -1,2 +1,7 @@
 bundle
 viminfo
+
+# Local recovery copies and an empty scratch document.
+/vimrc.backup-*
+/vimrc.before-native-*
+/Data/notes.rtfd/
