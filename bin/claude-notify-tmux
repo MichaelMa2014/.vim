@@ -1,0 +1,49 @@
+#!/bin/bash
+# Claude Code hook: desktop notification for the tmux pane Claude runs in.
+# Message comes from $1, else the hook JSON's .message on stdin.
+# Locally uses terminal-notifier (click jumps to the pane); over SSH, or without
+# terminal-notifier, falls back to OSC 9, which the terminal on your end turns
+# into a notification.
+msg=$1
+if [ -z "$msg" ] && [ ! -t 0 ]; then
+    msg=$(jq -r '.message // empty' 2>/dev/null)
+fi
+msg=${msg:-Claude needs attention}
+
+# First ancestor process with a controlling terminal (hooks have no /dev/tty).
+ancestor_tty() {
+    local pid=$PPID t
+    while [ "${pid:-0}" -gt 1 ]; do
+        t=$(ps -o tty= -p "$pid" 2>/dev/null | tr -d ' ')
+        if [ -n "$t" ] && [ "$t" != "?" ] && [ "$t" != "??" ]; then
+            echo "/dev/${t#/dev/}"
+            return
+        fi
+        pid=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d ' ')
+    done
+}
+
+pane=${TMUX_PANE:-}
+if [ -n "$pane" ] && tty=$(tmux display -p -t "$pane" '#{client_tty}' 2>/dev/null) && [ -n "$tty" ]; then
+    where=$(tmux display -p -t "$pane" '#S:#I.#P #W')
+    # tmux refreshes SSH_CONNECTION on attach, so this reflects the current client.
+    ssh=$(tmux show-environment -t "$pane" SSH_CONNECTION 2>/dev/null)
+    [ "${ssh#-}" = "$ssh" ] || ssh=
+else
+    tty=$(ancestor_tty)
+    where=
+    ssh=${SSH_CONNECTION:-}
+fi
+
+if [ -z "$ssh" ] && command -v terminal-notifier >/dev/null; then
+    args=(-title "Claude Code" -message "$msg" -activate com.googlecode.iterm2)
+    if [ -n "$pane" ]; then
+        args+=(-subtitle "$where" -execute "$(command -v tmux) switch-client -t '$pane' \; select-window -t '$pane' \; select-pane -t '$pane'")
+    fi
+    terminal-notifier "${args[@]}" >/dev/null 2>&1
+elif [ -n "$tty" ] && [ -w "$tty" ]; then
+    printf '\e]9;%s%s\a' "$msg" "${where:+ ($where)}" > "$tty"
+elif command -v osascript >/dev/null; then
+    osascript -e "display notification \"${msg//\"/\\\"}\" with title \"Claude Code\"" >/dev/null 2>&1
+fi
+exit 0

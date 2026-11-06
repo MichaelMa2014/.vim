@@ -66,6 +66,8 @@ rm -f ~/Library/LaunchAgents/Tmux.Start.plist
 # claude code (copy, not symlink: Claude Code rewrites settings.json in place)
 mkdir -p ~/.claude
 cp bak.claude-settings.json ~/.claude/settings.json
+mkdir -p ~/.local/bin
+ln -sf ~/.vim/bin/claude-notify-tmux ~/.local/bin/claude-notify-tmux
 
 # git hooks (plist lint before commit)
 git -C ~/.vim config core.hooksPath githooks
