@@ -81,12 +81,35 @@ autocmd TerminalOpen * if &buftype == 'terminal' | set nonu | endif
 " Crontab requires that files are edited in place
 au FileType crontab setlocal bkc=yes
 
-let g:ycm_confirm_extra_conf=0
-let g:ycm_complete_in_comments=1
-let g:ycm_collect_identifiers_from_tags_files=1
-let g:ycm_collect_identifiers_from_comments_and_strings=1
-let g:ycm_enable_diagnostic_highlighting=0
-let g:ycm_enable_hover=0
+let s:ycm_core_glob = glob(expand('~/.vim/bundle/YouCompleteMe/third_party/ycmd/ycmd/ycm_core.*'))
+if !empty(s:ycm_core_glob)
+  let g:ycm_confirm_extra_conf=0
+  let g:ycm_complete_in_comments=1
+  let g:ycm_collect_identifiers_from_tags_files=1
+  let g:ycm_collect_identifiers_from_comments_and_strings=1
+  let g:ycm_enable_diagnostic_highlighting=0
+  let g:ycm_enable_hover=0
+else
+  let g:loaded_youcompleteme = 1
+endif
+
+function! s:GoToJavaFile()
+  let l:class = expand('<cword>')
+  let l:root = trim(system('git rev-parse --show-toplevel 2>/dev/null'))
+  if empty(l:root)
+    echo 'Not in a git repo'
+    return
+  endif
+  let l:files = systemlist('rg --files -g "' . l:class . '.java" ' . shellescape(l:root))
+  if empty(l:files)
+    echo l:class . '.java not found'
+  elseif len(l:files) == 1
+    execute 'leftabove vertical split ' . fnameescape(l:files[0])
+  else
+    call setloclist(0, map(l:files, '{"filename": v:val, "lnum": 1}'))
+    lopen
+  endif
+endfunction
 let g:rainbow_active=1
 let g:NERDSpaceDelims=1
 let g:termdebug_wide=1
@@ -99,9 +122,13 @@ set undodir=$HOME/.vim/vimundo
 set undolevels=1000
 set undoreload=10000
 
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-nnoremap <C-G> :leftabove vertical YcmCompleter GoTo<CR>
-nnoremap <C-F> :YcmCompleter FixIt<CR>
+if !empty(s:ycm_core_glob)
+  nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+  nnoremap <C-G> :leftabove vertical YcmCompleter GoTo<CR>
+  nnoremap <C-F> :YcmCompleter FixIt<CR>
+else
+  nnoremap <C-G> :call <SID>GoToJavaFile()<CR>
+endif
 nnoremap <F2> :set foldmethod=indent<CR>
 nnoremap <F3> :NERDTree<CR>
 nnoremap <F4> :vs<CR>:Startify<CR>
@@ -200,3 +227,26 @@ let g:startify_lists = [
       \ { 'type': 'commands',  'header': ['   Commands']       },
       \ ]
 let g:startify_bookmarks = ['~/.vim/vimrc', '~/.zshrc' ]
+
+" GitGutter: diff against Graphite parent branch (gt parent)
+function! s:GitGutterSetGtParent() abort
+  if !executable('gt') || system('git rev-parse --is-inside-work-tree 2>/dev/null') !~# 'true'
+    return
+  endif
+  let parent = trim(system('gt parent 2>/dev/null'))
+  if !empty(parent)
+    let g:gitgutter_diff_base = parent
+  endif
+endfunction
+
+command! GitGutterGtParent
+      \ let g:gitgutter_diff_base = trim(system('gt parent')) |
+      \ GitGutter
+
+augroup gitgutter_gt_parent
+  autocmd!
+  autocmd VimEnter * call s:GitGutterSetGtParent()
+augroup END
+
+nnoremap <leader>gi :let g:gitgutter_diff_base = trim(system('gt parent')) \| GitGutter<CR>
+nnoremap <leader>gI :let g:gitgutter_diff_base = '' \| GitGutter<CR>
