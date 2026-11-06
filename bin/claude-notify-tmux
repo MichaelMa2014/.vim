@@ -3,10 +3,21 @@
 # Message comes from $1, else the hook JSON's .message on stdin.
 # Locally uses terminal-notifier (click jumps to the pane); over SSH, or without
 # terminal-notifier, falls back to OSC 9, which the terminal on your end turns
-# into a notification.
+# into a notification. Logs to ~/.local/log/claude-notify-tmux.log.
+LOG_DIR=$HOME/.local/log
+LOG=$LOG_DIR/claude-notify-tmux.log
+SOUND=${CLAUDE_NOTIFY_SOUND:-default}
+mkdir -p "$LOG_DIR"
+log() { printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" >> "$LOG"; }
+
+input=
+[ -t 0 ] || input=$(cat)
+# Skip when Cursor runs this Claude Code hook.
+case $input in *'"cursor_version"'*) exit 0 ;; esac
+event=$(printf '%s' "$input" | jq -r '.hook_event_name // empty' 2>/dev/null)
 msg=$1
-if [ -z "$msg" ] && [ ! -t 0 ]; then
-    msg=$(jq -r '.message // empty' 2>/dev/null)
+if [ -z "$msg" ]; then
+    msg=$(printf '%s' "$input" | jq -r '.message // empty' 2>/dev/null)
 fi
 msg=${msg:-Claude needs attention}
 
@@ -36,14 +47,19 @@ else
 fi
 
 if [ -z "$ssh" ] && command -v terminal-notifier >/dev/null; then
-    args=(-title "Claude Code" -message "$msg" -activate com.googlecode.iterm2)
+    args=(-title "Claude Code" -message "$msg" -sound "$SOUND" -activate com.googlecode.iterm2)
     if [ -n "$pane" ]; then
-        args+=(-subtitle "$where" -execute "$(command -v tmux) switch-client -t '$pane' \; select-window -t '$pane' \; select-pane -t '$pane'")
+        args+=(-subtitle "$where" -group "claude-$pane" -execute "$(command -v tmux) switch-client -t '$pane' \; select-window -t '$pane' \; select-pane -t '$pane'")
     fi
-    terminal-notifier "${args[@]}" >/dev/null 2>&1
+    log "NOTIFY [${event:-?}] via=terminal-notifier ${where:-no-tmux} $msg"
+    terminal-notifier "${args[@]}" >> "$LOG" 2>&1
 elif [ -n "$tty" ] && [ -w "$tty" ]; then
+    log "NOTIFY [${event:-?}] via=osc9${ssh:+ ssh} tty=$tty ${where:-no-tmux} $msg"
     printf '\e]9;%s%s\a' "$msg" "${where:+ ($where)}" > "$tty"
 elif command -v osascript >/dev/null; then
-    osascript -e "display notification \"${msg//\"/\\\"}\" with title \"Claude Code\"" >/dev/null 2>&1
+    log "NOTIFY [${event:-?}] via=osascript $msg"
+    osascript -e "display notification \"${msg//\"/\\\"}\" with title \"Claude Code\" sound name \"${SOUND/default/Glass}\"" >/dev/null 2>&1
+else
+    log "NOTIFY [${event:-?}] dropped: no notifier or tty $msg"
 fi
 exit 0
