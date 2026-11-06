@@ -63,3 +63,6 @@ chmod +x ~/.vim/bin/tmux-boot-restore.sh
 launchctl bootout "gui/$(id -u)/Tmux.Start.plist" 2>/dev/null || launchctl unload ~/Library/LaunchAgents/Tmux.Start.plist 2>/dev/null || true
 rm -f ~/Library/LaunchAgents/Tmux.Start.plist
 
+# claude code (copy, not symlink: Claude Code rewrites settings.json in place)
+mkdir -p ~/.claude
+cp bak.claude-settings.json ~/.claude/settings.json

@@ -1,0 +1,53 @@
+{
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "opus",
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.local/bin/claude-notify-tmux 'Claude finished'"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.local/bin/claude-notify-tmux"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "jq -r '(.context_window.used_percentage // 0 | floor) as $p | (.context_window.context_window_size // 0) as $s | (if $s >= 1000000 then ((($s / 100000) | floor) / 10 | tostring) + \"M\" else (($s / 1000) | floor | tostring) + \"k\" end) as $sz | (.model.display_name + (if .effort.level then \" (\" + .effort.level + \")\" else \"\" end)) as $m | (.workspace.current_dir | sub(\"^\" + $ENV.HOME; \"~\")) as $d | \"\\($m) \\($sz) | \\($p)% | \\($d)\"'"
+  },
+  "enabledPlugins": {
+    "swift-lsp@claude-plugins-official": true
+  },
+  "effortLevel": "xhigh",
+  "modelSettings": {
+    "deepseek-flash": {
+      "effortLevel": "high"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "medium"
+    }
+  },
+  "autoUpdatesChannel": "latest",
+  "minimumVersion": "2.1.100",
+  "tui": "fullscreen",
+  "autoCompactEnabled": true,
+  "autoContinueAtUsageLimit": true,
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true
+}
