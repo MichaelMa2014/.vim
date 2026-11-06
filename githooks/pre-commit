@@ -1,0 +1,13 @@
+#!/bin/bash
+# Reject commits containing a malformed plist (checks the staged content).
+status=0
+while IFS= read -r -d '' f; do
+    tmp=$(mktemp -t plistlint)
+    git show ":$f" > "$tmp"
+    if ! out=$(plutil -lint "$tmp" 2>&1); then
+        echo "pre-commit: malformed plist $f: ${out#*: }" >&2
+        status=1
+    fi
+    rm -f "$tmp"
+done < <(git diff --cached --name-only --diff-filter=ACMR -z -- '*.plist')
+exit $status

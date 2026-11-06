@@ -1,0 +1,2 @@
+# Never line-merge plists; a conflict keeps one side whole instead of corrupting XML.
+*.plist -merge
